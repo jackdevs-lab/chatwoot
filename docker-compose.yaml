@@ -40,6 +40,8 @@ services:
       - VITE_DEV_SERVER_HOST=vite
       - NODE_ENV=development
       - RAILS_ENV=development
+      - NODE_OPTIONS=--max-old-space-size=4096 
+      - WHITELISTED_IPS=172.18.0.0/16,127.0.0.1
     entrypoint: docker/entrypoints/rails.sh
     command: ["bundle", "exec", "rails", "s", "-p", "3000", "-b", "0.0.0.0"]
 
@@ -92,8 +94,8 @@ services:
     environment:
       - POSTGRES_DB=chatwoot
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=
-
+      - POSTGRES_PASSWORD=chatwoot_local_password
+      - NODE_OPTIONS=--max-old-space-size=4096 
   redis:
     image: redis:alpine
     restart: always
